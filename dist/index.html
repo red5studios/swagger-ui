@@ -106,7 +106,13 @@
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.io">swagger</a>
     <form id='api_selector'>
-      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+      <div class='input'>
+        <select name="baseUrl" id="input_baseUrl">
+          <option value="http://characters.vpc01.us-west-2.r5internal.net/api_docs">Characters</option>
+          <option value="http://social.vpc01.us-west-2.r5internal.net/api_docs">Social</option>
+          <option value="http://architect.vpc01.us-west-2.r5internal.net/api/v2/api_docs">Architect</option>
+        </select>
+      </div>
       <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
       <div class='input'><a id="explore" href="#" data-sw-translate>Explore</a></div>
     </form>
