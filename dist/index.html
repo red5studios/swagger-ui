@@ -97,8 +97,45 @@
           console.log.apply(console, arguments);
         }
       }
-  });
+      
+
+      // This object, and the following loop, hijack the normal form functionality in favor of a link list.
+      libraries = [
+        {
+          name: "Characters",
+          url: "http://characters.vpc01.us-west-2.r5internal.net/api_docs"
+        },
+        {
+          name: "Social",
+          url: "http://social.vpc01.us-west-2.r5internal.net/api/v1/api_docs"
+        },
+        {
+          name: "Architect",
+          url: "http://architect.vpc01.us-west-2.r5internal.net/api/v2/api_docs"
+        }
+      ];
+
+      $(libraries).each(function(i,o){
+        if(i>0){
+          $("#link_list").append("|");
+        }
+        $("#link_list").append("<a href='#' id='"+o.name+"_link' class='headerlink' value='"+o.url+"'>"+o.name+"</a>");
+        $("#input_baseUrl").append("<option value='"+o.url+"'>"+o.name+"</option>");
+        $("#"+o.name+"_link").click(function(e){
+          e.preventDefault();
+          //when clicked, we need to select the correct option from the select and submit the form.
+          $("#input_baseUrl").val(o.url);
+          $("#explore").click();
+        });
+      });
+
+    });
   </script>
+  <style>
+    a.headerlink {
+      color:#ffffff !important;
+    }
+  </style>
 </head>
 
 <body class="swagger-section">
@@ -106,15 +143,11 @@
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.io">swagger</a>
     <form id='api_selector'>
-      <div class='input'>
-        <select name="baseUrl" id="input_baseUrl">
-          <option value="http://characters.vpc01.us-west-2.r5internal.net/api_docs">Characters</option>
-          <option value="http://social.vpc01.us-west-2.r5internal.net/api_docs">Social</option>
-          <option value="http://architect.vpc01.us-west-2.r5internal.net/api/v2/api_docs">Architect</option>
+      <div class='input' id='link_list'>
+        <select name="baseUrl" id="input_baseUrl" style="display:none;">
         </select>
       </div>
-      <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
-      <div class='input'><a id="explore" href="#" data-sw-translate>Explore</a></div>
+      <div class='input'><a style="display:none;" id="explore" href="#" data-sw-translate>Explore</a></div>
     </form>
   </div>
 </div>
